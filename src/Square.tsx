@@ -1,17 +1,14 @@
-import * as React from 'react';
+import * as React from "react";
 
-interface SquareProps {
-  value: number
+interface Props {
+    value: string | null;
+    onClick: () => void;
 }
 
-class Square extends React.Component<SquareProps> {
-  public render() {
+export const Square = (props: Props): any => {
     return (
-      <button className="square">
-        {this.props.value}
-      </button>
+        <button className="square" onClick={props.onClick}>
+            {props.value}
+        </button>
     );
-  }
 }
-
-export default Square

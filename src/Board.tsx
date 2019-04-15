@@ -1,35 +1,47 @@
 import * as React from "react"
-import Square from './Square'
+import { Square } from './Square'
+type BoardType = string | null;
 
-class Board extends React.Component {
-  public renderSquare(i : number) {
-    return <Square value={i} />
-  }
-
-  public render() {
-    const status = 'Next player: X';
-
-    return (
-      <div>
-        <div className="status">{status}</div>
-        <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
-        </div>
-      </div>
-    );
-  }
+interface Props {
+    squares: BoardType[];
+    onClick: (i: number) => void;
 }
 
-export default Board;
+interface State {
+    squares: BoardType[];
+    xIsNext: boolean;
+}
+
+export default class Board extends React.Component<Props, State> {
+    public renderSquare(i: number) {
+        const onClick = () => this.props.onClick(i);
+        return (
+            <Square
+                value={this.props.squares[i]}
+                onClick={onClick}
+            />
+        );
+    }
+
+    public render() {
+        return (
+            <div>
+                <div className="board-row">
+                    {this.renderSquare(0)}
+                    {this.renderSquare(1)}
+                    {this.renderSquare(2)}
+                </div>
+                <div className="board-row">
+                    {this.renderSquare(3)}
+                    {this.renderSquare(4)}
+                    {this.renderSquare(5)}
+                </div>
+                <div className="board-row">
+                    {this.renderSquare(6)}
+                    {this.renderSquare(7)}
+                    {this.renderSquare(8)}
+                </div>
+            </div>
+        );
+    }
+}
